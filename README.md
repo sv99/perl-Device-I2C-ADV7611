@@ -6,15 +6,15 @@ Device::I2C::ADV7611 - I2C interface to ADV7611 using Device::I2C
     <p>
     <img src="https://img.shields.io/badge/perl-5.10+-brightgreen.svg" alt="Requires Perl 5.10+" />
     <a href="https://travis-ci.org/shantanubhadoria/perl-Device-I2C-ADV7611"><img src="https://api.travis-ci.org/shantanubhadoria/perl-Device-I2C-ADV7611.svg?branch=build/master" alt="Travis status" /></a>
-    <a href="http://matrix.cpantesters.org/?dist=Device-I2C-ADV7611%200.2"><img src="https://badgedepot.code301.com/badge/cpantesters/Device-I2C-ADV7611/0.2" alt="CPAN Testers result" /></a>
-    <a href="http://cpants.cpanauthors.org/dist/Device-I2C-ADV7611-0.2"><img src="https://badgedepot.code301.com/badge/kwalitee/Device-I2C-ADV7611/0.2" alt="Distribution kwalitee" /></a>
+    <a href="http://matrix.cpantesters.org/?dist=Device-I2C-ADV7611%200.01"><img src="https://badgedepot.code301.com/badge/cpantesters/Device-I2C-ADV7611/0.01" alt="CPAN Testers result" /></a>
+    <a href="http://cpants.cpanauthors.org/dist/Device-I2C-ADV7611-0.01"><img src="https://badgedepot.code301.com/badge/kwalitee/Device-I2C-ADV7611/0.01" alt="Distribution kwalitee" /></a>
     <a href="https://gratipay.com/shantanubhadoria"><img src="https://img.shields.io/gratipay/shantanubhadoria.svg" alt="Gratipay" /></a>
     </p>
 </div>
 
 # VERSION
 
-version 0.2
+version 0.01
 
 # SUPPORT
 
