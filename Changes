@@ -1,8 +1,9 @@
 Changelog for Device-I2C-ADV7611
 
-0.02 2016-06-15T13:06:21
+0.02 2016-06-16T09:46:08Z
+ - v0.02 (sv99)
  - add I2C subdir (sv99)
 
-0.01 2016-06-15T08:57:26
+0.01 2016-06-15T08:57:26Z
  - v0.01 (sv99)
  - first commit (sv99)

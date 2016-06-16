@@ -11,6 +11,7 @@ package Device::I2C::ADV7611;
 use 5.010;
 use Device::I2C;
 use Fcntl;
+use Carp;
 
 use constant CTRL_IO    => 0x4c;
 use constant CTRL_HDMI  => 0x34;
@@ -20,6 +21,9 @@ use constant CTRL_INFO  => 0x3E;
 use constant CTRL_KSV   => 0x32;
 use constant CTRL_EDID  => 0x36;
 use constant CTRL_CP    => 0x22;
+use Exporter qw(import);
+our @EXPORT_OK = qw(CTRL_IO CTRL_HDMI CTRL_DPLL CTRL_CEC
+CTRL_INFO CTRL_KSV CTRL_EDID CTRL_CP );
 
 sub new {
     my $class = shift;
@@ -52,13 +56,13 @@ sub checkCable {
 
 sub writeRegister {
     my ($io, $addr, $register, $value) = @_;
-    $io->select_device($addr);
+    $io->selectDevice($addr);
     $io->writeByteData($register, $value);
 }
 
 sub readRegister {
     my ($io, $addr, $register) = @_;
-    $io->select_device($addr);
+    $io->selectDevice($addr);
     return $io->readByteData($register);
 }
 
