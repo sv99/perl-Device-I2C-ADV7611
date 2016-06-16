@@ -21,9 +21,11 @@ use constant CTRL_INFO  => 0x3E;
 use constant CTRL_KSV   => 0x32;
 use constant CTRL_EDID  => 0x36;
 use constant CTRL_CP    => 0x22;
+
 use Exporter qw(import);
 our @EXPORT_OK = qw(CTRL_IO CTRL_HDMI CTRL_DPLL CTRL_CEC
-CTRL_INFO CTRL_KSV CTRL_EDID CTRL_CP );
+                    CTRL_INFO CTRL_KSV CTRL_EDID CTRL_CP );
+our @ISA = qw(Device::I2C);
 
 sub new {
     my $class = shift;
@@ -51,7 +53,6 @@ sub resetDevice {
 sub checkCable {
     my ($io) = @_;
     return $io->readIO(0x6f) & 0x01;
-    
 }
 
 sub writeRegister {
