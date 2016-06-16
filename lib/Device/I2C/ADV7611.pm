@@ -146,4 +146,43 @@ sub readCP {
     $io->readRegister(CTRL_CP, $register);
 }
 
+sub initAddressMaps {
+    my ($io) = @_;
+
+    $io->writeIO(0xfd, CTRL_CP << 1);
+    $io->writeIO(0xf9, CTRL_KSV << 1);
+    $io->writeIO(0xfb, CTRL_HDMI << 1);
+    $io->writeIO(0xfa, CTRL_EDID << 1);
+    $io->writeIO(0xf8, CTRL_DPLL << 1);
+    $io->writeIO(0xf4, CTRL_CEC << 1);
+    $io->writeIO(0xf5, CTRL_INFO << 1);
+}
+
+sub writeEDIDTable {
+    my ($io, @edid) = @_;
+    my $err;
+
+    $io->writeKSV(0x40, 0x81); # Disable HDCP 1.1
+    $io->writeKSV(0x74, 0x00); # reset ksv controller
+
+    my $count = @edid;
+    printf("Write edid data %d bytes\n", count);
+
+    for (my $i = 0; $i < $count; $i++) {
+        #printf("EDID %x, %x\n", $i, $edid[$i]);
+        $err = $io->writeEDID($i, $edid[$i]);
+        if ($err < 0) {
+            printf("fail to write edid data\n");
+            return;
+
+            # ADV761x calculates the checksums and enables I2C access
+            # to internal EDID ram from DDC port.
+        }
+    }
+
+    $io->writeKSV(0x74, 0x01); # KSV controller is out of reset
+
+    $io->writeIO(0x15, 0xBE);
+}
+
 1;
