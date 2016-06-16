@@ -1,9 +1,12 @@
 Changelog for Device-I2C-ADV7611
 
-0.04 2016-06-16T12:29:12
+0.05 2016-06-16T19:53:46
+ - add initAddressMaps and writeEDIDTable (sv99)
+
+0.04 2016-06-16T12:29:12Z
  - add isa (sv99)
 
-0.03 2016-06-16T09:58:32
+0.03 2016-06-16T09:58:32Z
  - add Exporter (sv99)
 
 0.02 2016-06-16T09:46:08Z
