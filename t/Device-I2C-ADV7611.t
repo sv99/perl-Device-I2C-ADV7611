@@ -1,5 +1,5 @@
 # Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl Device-LPS331AP.t'
+# `make test'. After `make install' it should work as `perl Device-I2C-ADV7611.t'
 
 #########################
 
@@ -9,8 +9,8 @@ use strict;
 use warnings;
 
 use Test::More tests => 1;
-#BEGIN { use_ok('Device::LPS331AP') };
-BEGIN { ok(1) };
+BEGIN { use_ok('Device::I2C::ADV7611') };
+# BEGIN { ok(1) };
 
 #########################
 

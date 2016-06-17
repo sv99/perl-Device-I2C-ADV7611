@@ -163,10 +163,10 @@ sub writeEDIDTable {
     my $err;
 
     $io->writeKSV(0x40, 0x81); # Disable HDCP 1.1
-    $io->writeKSV(0x74, 0x00); # reset ksv controller
+    $io->writeKSV(0x74, 0x00); # disable internal EDID
 
     my $count = @edid;
-    printf("Write edid data %d bytes\n", count);
+    printf("Write edid data %d bytes\n", $count);
 
     for (my $i = 0; $i < $count; $i++) {
         #printf("EDID %x, %x\n", $i, $edid[$i]);
@@ -180,8 +180,7 @@ sub writeEDIDTable {
         }
     }
 
-    $io->writeKSV(0x74, 0x01); # KSV controller is out of reset
-
+    $io->writeKSV(0x74, 0x01); # enable internal EDID
     $io->writeIO(0x15, 0xBE);
 }
 
