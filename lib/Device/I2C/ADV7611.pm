@@ -67,6 +67,14 @@ sub readRegister {
     return $io->readByteData($register);
 }
 
+sub readRegister16 {
+    my ($io, $addr, $register) = @_;
+    $io->selectDevice($addr);
+    my $res = $io->readByteData($register);
+    $res <<= 8;
+    return $res + $io->readByteData($register + 1);
+}
+
 sub writeIO {
     my ($io, $register, $value) = @_;
     $io->writeRegister(CTRL_IO, $register, $value);
@@ -77,6 +85,11 @@ sub readIO {
     $io->readRegister(CTRL_IO, $register);
 }
 
+sub readIO16 {
+    my ($io, $register) = @_;
+    $io->readRegister16(CTRL_IO, $register);
+}
+
 sub writeHDMI {
     my ($io, $register, $value) = @_;
     $io->writeRegister(CTRL_HDMI, $register, $value);
@@ -85,6 +98,11 @@ sub writeHDMI {
 sub readHDMI {
     my ($io, $register) = @_;
     $io->readRegister(CTRL_HDMI, $register);
+}
+
+sub readHDMI16 {
+    my ($io, $register) = @_;
+    $io->readRegister16(CTRL_HDMI, $register);
 }
 
 sub writeDPLL {
@@ -144,6 +162,11 @@ sub writeCP {
 sub readCP {
     my ($io, $register) = @_;
     $io->readRegister(CTRL_CP, $register);
+}
+
+sub readCP16 {
+    my ($io, $register) = @_;
+    $io->readRegister16(CTRL_CP, $register);
 }
 
 sub initAddressMaps {
