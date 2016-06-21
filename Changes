@@ -1,6 +1,9 @@
 Changelog for Device-I2C-ADV7611
 
-0.07 2016-06-21T09:59:36
+0.08 2016-06-21T14:22:33
+ - add check line state and read input signal params (sv99)
+
+0.07 2016-06-21T09:59:36Z
  - add readRegister16 (sv99)
 
 0.06 2016-06-17T07:46:14Z
