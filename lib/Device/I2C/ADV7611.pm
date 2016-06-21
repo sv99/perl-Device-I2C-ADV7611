@@ -207,4 +207,96 @@ sub writeEDIDTable {
     $io->writeIO(0x15, 0xBE);
 }
 
+# check line state
+sub isPower {
+    my ($io) = @_;
+    return $io->readIO(0x0c) & 0x24;
+}
+
+sub isHDMI {
+    my ($io) = @_;
+    return $io->readHDMI(0x05) & 0x80;
+}
+
+sub isLockSTDI {
+    my ($io) = @_;
+    return $io->readCP(0xb1) & 0x80;
+}
+
+sub isTMDS {
+    my ($io) = @_;
+    return $io->readIO(0x6a) & 0x10;
+}
+
+sub isLockTMDS {
+    my ($io) = @_;
+    return $io->readIO(0x6a) & 0x43 == 0x43;
+}
+
+sub isSignal {
+    my ($io) = @_;
+    my $res;
+    $res = !$io->noPower();
+    $res &&= $io->isLockSTDI();
+    $res &&= $io->isTMDS();
+    $res &&= $io->isLockTMDS();
+}
+
+sub noLockCP {
+    my ($io) = @_;
+    return $io->readIO(0x12) & 0x01;
+}
+
+sub isFreeRun {
+    my ($io) = @_;
+    return $io->readCP(0xff) & 0x10;
+}
+
+# HDMI signal params
+sub getWidth {
+    my ($io) = @_;
+    return $io->readHDMI16(0x07) & 0x1fff;
+}
+
+sub getHeight {
+    my ($io) = @_;
+    return $io->readHDMI16(0x09) & 0x1fff;
+}
+
+sub getHFrontPorch {
+    my ($io) = @_;
+    return $io->readHDMI16(0x20) & 0x1fff;
+}
+
+sub getHSync {
+    my ($io) = @_;
+    return $io->readHDMI16(0x22) & 0x1fff;
+}
+
+sub getHBackPorch {
+    my ($io) = @_;
+    return $io->readHDMI16(0x24) & 0x1fff;
+}
+
+sub getVFrontPorch {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x2a) & 0x1fff) / 2;
+}
+
+sub getVSync {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x2e) & 0x1fff) / 2;
+}
+
+sub getVBackPorch {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x32) & 0x1fff) / 2;
+}
+
+sub getFPS1000 {
+    my ($io) = @_;
+    my $fps = $io->readCP16(0xb8) & 0x1fff;
+    return 28636360/256/$fps*1000;
+}
+
 1;
