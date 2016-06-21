@@ -1,7 +1,7 @@
 Changelog for Device-I2C-ADV7611
 
-0.07 2016-06-17T09:20:44
- - No changes found
+0.07 2016-06-21T09:59:36
+ - add readRegister16 (sv99)
 
 0.06 2016-06-17T07:46:14Z
  - correct test and pod (sv99)
