@@ -50,11 +50,6 @@ sub resetDevice {
     `echo 1 > /proc/v2r_gpio/pwctr2`;
 }
 
-sub checkCable {
-    my ($io) = @_;
-    return $io->readIO(0x6f) & 0x01;
-}
-
 sub writeRegister {
     my ($io, $addr, $register, $value) = @_;
     $io->selectDevice($addr);
@@ -208,9 +203,14 @@ sub writeEDIDTable {
 }
 
 # check line state
-sub isPower {
+sub noPower {
     my ($io) = @_;
     return $io->readIO(0x0c) & 0x24;
+}
+
+sub checkCable {
+    my ($io) = @_;
+    return $io->readIO(0x6f) & 0x01;
 }
 
 sub isHDMI {
