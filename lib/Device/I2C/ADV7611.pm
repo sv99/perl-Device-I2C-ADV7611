@@ -46,7 +46,7 @@ sub resetDevice {
     `echo 0 > /proc/v2r_gpio/99`;
     `echo 1 > /proc/v2r_gpio/99`;
     `echo 0 > /proc/v2r_gpio/pwctr2`;
-    sleep(0.5);
+    sleep(1);
     `echo 1 > /proc/v2r_gpio/pwctr2`;
 }
 
@@ -233,6 +233,11 @@ sub isLockTMDS {
     return $io->readIO(0x6a) & 0x43 == 0x43;
 }
 
+sub isInterlaced {
+    my ($io) = @_;
+    return $io->readIO(0x12) & 0x10;
+}
+
 sub isSignal {
     my ($io) = @_;
     my $res;
@@ -240,11 +245,6 @@ sub isSignal {
     $res &&= $io->isLockSTDI();
     $res &&= $io->isTMDS();
     $res &&= $io->isLockTMDS();
-}
-
-sub noLockCP {
-    my ($io) = @_;
-    return $io->readIO(0x12) & 0x01;
 }
 
 sub isFreeRun {
@@ -297,6 +297,13 @@ sub getFPS1000 {
     my ($io) = @_;
     my $fps = $io->readCP16(0xb8) & 0x1fff;
     return 28636360/256/$fps*1000;
+}
+
+sub getTMDSFreq {
+    my ($io) = @_;
+    my $freq = $io->readHDMI16(0x51);
+    my $frac = ($freq & 0x7f)/128;
+    return ($freq >> 7) + $frac;
 }
 
 1;
