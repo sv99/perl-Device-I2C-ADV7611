@@ -1,6 +1,9 @@
 Changelog for Device-I2C-ADV7611
 
-0.10 2016-06-24T11:22:25
+0.11 2016-06-25T10:19:30
+ - add total lines functions (sv99)
+
+0.10 2016-06-24T11:22:25Z
  - add isInterlased ang getTMDSFreq (sv99)
 
 0.09 2016-06-21T15:17:24Z
