@@ -218,6 +218,21 @@ sub isHDMI {
     return $io->readHDMI(0x05) & 0x80;
 }
 
+sub isDERegenFilterLocked {
+    my ($io) = @_;
+    return $io->readHDMI(0x07) & 0x20;
+}
+
+sub isVertFilterLocked {
+    my ($io) = @_;
+    return $io->readHDMI(0x07) & 0x80;
+}
+
+sub isFiltersLocked {
+    my ($io) = @_;
+    return $io->isDERegenFilterLocked() && $io->isVertFilterLocked();
+}
+
 sub isLockSTDI {
     my ($io) = @_;
     return $io->readCP(0xb1) & 0x80;
@@ -253,14 +268,34 @@ sub isFreeRun {
 }
 
 # HDMI signal params
+sub getTotalWidth {
+    my ($io) = @_;
+    return $io->readHDMI16(0x1e) & 0x3fff;
+}
+
 sub getWidth {
     my ($io) = @_;
     return $io->readHDMI16(0x07) & 0x1fff;
 }
 
-sub getHeight {
+sub getTotalHeight0 {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x26) & 0x3fff) / 2;
+}
+
+sub getTotalHeight1 {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x28) & 0x3fff) / 2;
+}
+
+sub getHeight0 {
     my ($io) = @_;
     return $io->readHDMI16(0x09) & 0x1fff;
+}
+
+sub getHeight1 {
+    my ($io) = @_;
+    return $io->readHDMI16(0x0b) & 0x1fff;
 }
 
 sub getHFrontPorch {
@@ -278,19 +313,34 @@ sub getHBackPorch {
     return $io->readHDMI16(0x24) & 0x1fff;
 }
 
-sub getVFrontPorch {
+sub getVFrontPorch0 {
     my ($io) = @_;
-    return ($io->readHDMI16(0x2a) & 0x1fff) / 2;
+    return ($io->readHDMI16(0x2a) & 0x3fff) / 2;
 }
 
-sub getVSync {
+sub getVFrontPorch1 {
     my ($io) = @_;
-    return ($io->readHDMI16(0x2e) & 0x1fff) / 2;
+    return ($io->readHDMI16(0x2c) & 0x3fff) / 2;
 }
 
-sub getVBackPorch {
+sub getVSync0 {
     my ($io) = @_;
-    return ($io->readHDMI16(0x32) & 0x1fff) / 2;
+    return ($io->readHDMI16(0x2e) & 0x3fff) / 2;
+}
+
+sub getVSync1 {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x30) & 0x3fff) / 2;
+}
+
+sub getVBackPorch0 {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x32) & 0x3fff) / 2;
+}
+
+sub getVBackPorch1 {
+    my ($io) = @_;
+    return ($io->readHDMI16(0x34) & 0x3fff) / 2;
 }
 
 sub getFPS1000 {
